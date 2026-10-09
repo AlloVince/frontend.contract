@@ -1,0 +1,20 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {mkdtempSync,readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {spawnSync} from 'node:child_process';
+const cli=new URL('../bin/contract.mjs',import.meta.url).pathname;
+test('create and adopt preserve existing files',()=>{
+ const base=mkdtempSync(join(tmpdir(),'contract-'));
+ const fresh=join(base,'new');
+ let r=spawnSync(process.execPath,[cli,'create',fresh]);
+ assert.equal(r.status,0,r.stderr?.toString());
+ assert.ok(existsSync(join(fresh,'src/main.tsx')));
+ assert.equal(JSON.parse(readFileSync(join(fresh,'frontend-contract.json'))).mode,'strict');
+ const old=join(base,'old');mkdirSync(old);writeFileSync(join(old,'keep.txt'),'untouched');
+ r=spawnSync(process.execPath,[cli,'adopt',old]);
+ assert.equal(r.status,0,r.stderr?.toString());
+ assert.equal(readFileSync(join(old,'keep.txt'),'utf8'),'untouched');
+ assert.equal(JSON.parse(readFileSync(join(old,'frontend-contract.json'))).mode,'incremental');
+});
