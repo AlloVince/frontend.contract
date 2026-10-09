@@ -1,6 +1,10 @@
-# Agent contract
-Read this and FRONTEND.md before frontend changes, along with project AGENTS.md.
-Preserve project-specific business requirements, existing APIs, and the designated single dev server/domain.
-Never introduce SSR, duplicate controls, fake production data, arbitrary routing or style hacks without approval.
-Use React DevTools or source-location tooling to identify business components.
-Run contract checks and relevant browser/visual tests. Report exact failures, gaps and deviations.
+# 前端 Agent 工作规范
+
+开始前端开发前，必须阅读本文件、`FRONTEND.md` 以及项目自身的 `AGENTS.md`。
+
+- 默认使用简体中文撰写文档、用户界面文案、操作说明、验收报告和与用户的沟通；代码标识符与外部 API 保持兼容。
+- 遵守项目业务要求，保留既有 API 契约；开发环境只保留项目指定域名对应的唯一前端服务。
+- 未经批准，不得引入 SSR、重复开发通用组件、伪造生产数据、随意发明路由或堆叠样式补丁。
+- 给业务组件取明确的名称；使用 React DevTools 或源码定位工具，方便用户直接指名组件。
+- 交付前执行项目已有的契约检查、浏览器验收和必要的视觉复核。
+- 交付报告必须用中文明确列出：实际检查结果、失败或未验证项、例外及遗留问题。

@@ -1,13 +1,38 @@
-# Frontend Contract v0.1.0
+# 前端工程契约 v0.1.0
 
-## Default architecture
-React + TypeScript + Vite, static SPA first. SSR/SSG/server runtime requires a documented use case and approval. Frontend and API remain independently deployable. Use React Router; every independent screen must have a URL, work on direct visit and refresh, support browser history, and have a 404. Static hosting must rewrite SPA routes to index.html without intercepting API/assets.
+## 一、默认架构
 
-## Components and UX
-Use one maintained UI library and project theme tokens; do not introduce competing libraries, magic colors, repeated CSS hacks, or !important without documented exceptions. Give business regions meaningful React component names. Prefer semantic elements and accessible labels. Use data-testid only for stable regions not reliably addressable semantically. Provide loading, empty, error, and not-found states. Custom SVG/Canvas is allowed for domain visualizations, not to recreate common controls.
+- 默认采用 React + TypeScript + Vite，优先部署为纯静态 SPA。
+- SSR、SSG、Next.js、BFF 或额外服务端运行环境必须有明确需求、书面理由及审批，不得默认引入。
+- 前端与后端 API、数据导入和处理任务应独立部署。
+- 统一使用 React Router。每个独立页面必须有可访问的 URL，支持直接打开、刷新、浏览器前进后退以及 404 页面；应保留在 URL 中的业务状态不能只藏在组件内存里。
+- 静态托管必须支持 SPA 路由回退到 `index.html`，但不得错误拦截 API 和静态资源请求。
 
-## Data and tests
-Use standard request/cache libraries when justified; validate external data at boundaries. No production fake data hiding missing API integration. Completion requires typecheck, lint, build, browser checks for deep links, navigation, history and 404, plus visual review for changed screens. Report unavailable checks as gaps, not passes. Agent must never claim completion without evidence.
+## 二、组件与体验
 
-## Adoption
-New projects use strict mode. Existing projects use incremental mode: preserve application code and record legacy exceptions in BASELINE.md. Upgrades are explicit, per-project and versioned.
+- 优先选用维护活跃、社区成熟的组件库；一个项目只选定一套主要 UI 组件体系，并通过主题变量统一外观。
+- 禁止未经批准引入竞争性组件库、随意写死颜色和间距、重复堆叠 CSS 补丁或滥用 `!important`。
+- 业务区域必须有清晰的 React 组件名称，方便通过 React DevTools 定位并在沟通中直接引用。
+- 优先使用语义化 HTML 和无障碍名称。只有难以稳定使用语义定位的业务区域，才使用 `data-testid`。
+- 必须处理加载中、空数据、错误、页面不存在等状态，并保证键盘操作与焦点行为合理。
+- 专业业务图表允许使用 SVG、Canvas、D3 等自定义实现，但不得重复制造通用表单、弹窗和表格控件。
+
+## 三、数据与质量验收
+
+- 有必要时采用成熟的请求缓存方案；对不可信的外部数据进行边界校验。
+- 不得用伪造的生产数据掩盖 API 尚未接通的事实。模拟数据只用于明确标识的测试或演示。
+- 完工前必须执行类型检查、代码规范检查、生产构建，以及关键页面的浏览器验收。
+- 浏览器验收至少覆盖：URL 直接访问、刷新、页面跳转、前进后退和 404；重要视觉修改必须有人眼或截图复核。
+- Agent 必须报告实际执行的检查、失败项、偏离规范的地方及未验证内容；不得无证据宣称完成。
+
+## 四、跨项目接入
+
+- 新项目采用严格模式；现有项目采用增量模式。
+- 接入契约不得擅自重写现有 UI 或业务逻辑；历史例外记录在项目的 `BASELINE.md`。
+- 每个项目固定契约版本；升级必须显式进行并审查，禁止静默同步。
+
+## 五、默认语言和操作环境
+
+- 没有特殊说明时，文档、用户可见界面、操作说明、错误提示和交付总结一律使用**简体中文**。
+- 开发、测试和验收优先考虑中文使用环境；不得因为底层依赖为英文就默认把产品界面做成英文。
+- 代码标识符、标准命令、库名和协议字段保持技术上合适的原文，避免破坏兼容性。
