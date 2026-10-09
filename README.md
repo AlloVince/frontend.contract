@@ -33,6 +33,8 @@ node bin/contract.mjs check ~/Developer/new.front
 - `contract/FRONTEND.md`：前端架构、UI、路由和质量规范
 - `contract/AGENT.md`：Agent 开发行为规范
 - `contract/DATA-DISPLAY.md`：表格对齐、金额和测量指标展示规范
+- `contract/INTERACTION.md`：表格、筛选、表单、图表与交互规范
+- `contract/ACCEPTANCE.md`：前端验收清单
 - `templates/react-spa/`：可运行的 SPA 项目模板
 - `bin/contract.mjs`：创建、接入、检查命令
 - `tests/`：契约命令测试

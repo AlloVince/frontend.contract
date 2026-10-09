@@ -16,7 +16,7 @@ try{
   else if(!fs.existsSync(target))throw Error('Project not found');
   if(fs.existsSync(manifest))throw Error('Already adopted; upgrades must be explicit');
   const dir=path.join(target,'docs/frontend-contract');
-  for(const f of ['FRONTEND.md','AGENT.md','DATA-DISPLAY.md'])write(path.join(dir,f),fs.readFileSync(path.join(root,'contract',f)));
+  for(const f of ['FRONTEND.md','AGENT.md','DATA-DISPLAY.md','INTERACTION.md','ACCEPTANCE.md'])write(path.join(dir,f),fs.readFileSync(path.join(root,'contract',f)));
   write(manifest,JSON.stringify({version:'0.1.0',profile:'react-spa',mode:cmd==='create'?'strict':'incremental',ui:'project-selected'},null,2)+'\n');
   write(path.join(dir,'BASELINE.md'),'# Baseline\n\nRecord existing exceptions and missing checks here.\n');
   const agents=path.join(target,'AGENTS.md');
