@@ -2,6 +2,8 @@
 
 ## 一、默认架构
 
+- 默认运行时为 **Node.js 24 LTS**，统一使用 24.x；除非项目明确批准，不向下兼容 Node.js 20/22，也不默认使用尚未完成验证的更高大版本。项目必须通过 `.node-version` 和 `package.json#engines` 固定基线。
+
 - 默认采用 React + TypeScript + Vite，优先部署为纯静态 SPA。
 - SSR、SSG、Next.js、BFF 或额外服务端运行环境必须有明确需求、书面理由及审批，不得默认引入。
 - 前端与后端 API、数据导入和处理任务应独立部署。

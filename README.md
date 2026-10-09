@@ -11,7 +11,7 @@
 
 ## 使用方法
 
-要求 Node.js 20 或更新版本。
+要求 **Node.js 24 LTS**（支持 24.x，不默认兼容 Node.js 20、22 或 26）。仓库和项目模板均提供 `.node-version`，并通过 `package.json#engines` 声明版本范围。
 
 ```bash
 # 创建新项目（目标目录必须为空）
