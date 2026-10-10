@@ -18,3 +18,17 @@ test('create and adopt preserve existing files',()=>{
  assert.equal(readFileSync(join(old,'keep.txt'),'utf8'),'untouched');
  assert.equal(JSON.parse(readFileSync(join(old,'frontend-contract.json'))).mode,'incremental');
 });
+
+test('incremental checks stay advisory unless strict mode is requested',()=>{
+ const base=mkdtempSync(join(tmpdir(),'contract-check-'));
+ const project=join(base,'project');
+ mkdirSync(project);
+ writeFileSync(join(project,'frontend-contract.json'),JSON.stringify({version:'0.1.0',profile:'react-spa',mode:'incremental'}));
+ writeFileSync(join(project,'package.json'),JSON.stringify({scripts:{}}));
+ let r=spawnSync(process.execPath,[cli,'check',project],{encoding:'utf8'});
+ assert.equal(r.status,0,r.stderr);
+ assert.match(r.stdout,/UNVERIFIED: typecheck, lint, build, test:e2e/);
+ r=spawnSync(process.execPath,[cli,'check','--strict',project],{encoding:'utf8'});
+ assert.equal(r.status,1,r.stderr);
+ assert.match(r.stdout,/UNVERIFIED: typecheck, lint, build, test:e2e/);
+});

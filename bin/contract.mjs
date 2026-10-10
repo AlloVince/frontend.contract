@@ -4,12 +4,14 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
-const [cmd,arg]=process.argv.slice(2);
+const [cmd,...args]=process.argv.slice(2);
+const strict=args.includes('--strict');
+const arg=args.find(value=>value!=='--strict');
 const target=arg&&path.resolve(arg);
 const write=(p,s)=>{fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,s)};
 const copy=(a,b)=>{for(const e of fs.readdirSync(a,{withFileTypes:true})){const src=path.join(a,e.name),dst=path.join(b,e.name);if(e.isDirectory())copy(src,dst);else{if(fs.existsSync(dst))throw Error('Will not overwrite '+dst);write(dst,fs.readFileSync(src));}}};
 try{
- if(!target||!['create','adopt','check'].includes(cmd))throw Error('Usage: contract <create|adopt|check> <path>');
+ if(!target||!['create','adopt','check'].includes(cmd))throw Error('Usage: contract <create|adopt|check> [--strict] <path>');
  const manifest=path.join(target,'frontend-contract.json');
  if(cmd==='create'||cmd==='adopt'){
   if(cmd==='create'){if(fs.existsSync(target)&&fs.readdirSync(target).length)throw Error('Target not empty');fs.mkdirSync(target,{recursive:true});copy(path.join(root,'templates/react-spa'),target);}
@@ -35,7 +37,7 @@ try{
    if(r.status!==0){failed=true;console.log('FAIL '+script);}
   }
   if(gaps.length)console.log('UNVERIFIED: '+gaps.join(', '));
-  if(failed||(m.mode==='strict'&&gaps.length))process.exitCode=1;
+  if(failed||((strict||m.mode==='strict')&&gaps.length))process.exitCode=1;
   else console.log('Available checks passed');
  }
 }catch(e){console.error(e.message);process.exitCode=1}
