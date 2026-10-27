@@ -19,7 +19,7 @@ try{
   if(fs.existsSync(manifest))throw Error('Already adopted; upgrades must be explicit');
   const dir=path.join(target,'docs/frontend-contract');
   for(const f of ['FRONTEND.md','AGENT.md','DATA-DISPLAY.md','INTERACTION.md','ACCEPTANCE.md'])write(path.join(dir,f),fs.readFileSync(path.join(root,'contract',f)));
-  write(manifest,JSON.stringify({version:'0.1.0',profile:'react-spa',mode:cmd==='create'?'strict':'incremental',ui:'project-selected'},null,2)+'\n');
+  write(manifest,JSON.stringify({version:'0.2.0',profile:'react-spa',mode:cmd==='create'?'strict':'incremental',ui:'project-selected'},null,2)+'\n');
   write(path.join(dir,'BASELINE.md'),'# Baseline\n\nRecord existing exceptions and missing checks here.\n');
   const agents=path.join(target,'AGENTS.md');
   const note='\n## Frontend contract\nRead docs/frontend-contract/AGENT.md and FRONTEND.md before frontend work.\n';

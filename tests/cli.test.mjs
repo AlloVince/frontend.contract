@@ -12,11 +12,17 @@ test('create and adopt preserve existing files',()=>{
  assert.equal(r.status,0,r.stderr?.toString());
  assert.ok(existsSync(join(fresh,'src/main.tsx')));
  assert.equal(JSON.parse(readFileSync(join(fresh,'frontend-contract.json'))).mode,'strict');
+ assert.equal(JSON.parse(readFileSync(join(fresh,'frontend-contract.json'))).version,'0.2.0');
+ assert.match(readFileSync(join(fresh,'docs/frontend-contract/FRONTEND.md'),'utf8'),/Path 优先/);
+ assert.match(readFileSync(join(fresh,'docs/frontend-contract/INTERACTION.md'),'utf8'),/过滤器参数必须放在 Query/);
+ assert.match(readFileSync(join(fresh,'docs/frontend-contract/ACCEPTANCE.md'),'utf8'),/URL 设计 Review/);
  const old=join(base,'old');mkdirSync(old);writeFileSync(join(old,'keep.txt'),'untouched');
  r=spawnSync(process.execPath,[cli,'adopt',old]);
  assert.equal(r.status,0,r.stderr?.toString());
  assert.equal(readFileSync(join(old,'keep.txt'),'utf8'),'untouched');
  assert.equal(JSON.parse(readFileSync(join(old,'frontend-contract.json'))).mode,'incremental');
+ assert.equal(JSON.parse(readFileSync(join(old,'frontend-contract.json'))).version,'0.2.0');
+ assert.match(readFileSync(join(old,'docs/frontend-contract/INTERACTION.md'),'utf8'),/过滤器参数必须放在 Query/);
 });
 
 test('incremental checks stay advisory unless strict mode is requested',()=>{

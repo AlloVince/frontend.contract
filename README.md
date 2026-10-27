@@ -7,6 +7,7 @@
 - 默认使用中文：文档、用户界面、操作提示、测试说明和 Agent 交付报告均采用中文。技术标识符、代码 API、第三方专有名称保留原文。
 - 优先采用 React + TypeScript + Vite 的纯前端 SPA。未经明确论证和批准，不引入 SSR。
 - 采用成熟社区组件库，统一主题、路由与验收要求。
+- URL 采用 Path 优先原则：Path 表达页面/资源/业务层级，过滤器、搜索、排序和分页放在 Query；具体语义需经 Review，不以机械堆叠路径段追求“Path 优先”。
 - 旧项目可以增量接入，不强制迁移现有组件库或重写业务代码。
 
 ## 使用方法
@@ -33,13 +34,13 @@ node bin/contract.mjs check ~/Developer/new.front
 - `contract/FRONTEND.md`：前端架构、UI、路由和质量规范
 - `contract/AGENT.md`：Agent 开发行为规范
 - `contract/DATA-DISPLAY.md`：表格对齐、金额和测量指标展示规范
-- `contract/INTERACTION.md`：表格、筛选、表单、图表与交互规范
+- `contract/INTERACTION.md`：表格、筛选、表单、图表、URL 与交互规范
 - `contract/ACCEPTANCE.md`：前端验收清单
 - `templates/react-spa/`：可运行的 SPA 项目模板
 - `bin/contract.mjs`：创建、接入、检查命令
 - `tests/`：契约命令测试
 
-当前版本：**v0.1.0**。检查命令只执行项目已有的检查脚本；缺失的检查会明确标为“未验证”，不会冒充通过。
+当前版本：**v0.2.0**。检查命令只执行项目已有的检查脚本；缺失的检查会明确标为“未验证”，不会冒充通过。
 
 ## UI 组件库选型
 
